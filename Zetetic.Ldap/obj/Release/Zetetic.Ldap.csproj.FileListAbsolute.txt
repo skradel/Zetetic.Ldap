@@ -1,0 +1,7 @@
+C:\zetetic\Zetetic.Ldap\bin\Release\Zetetic.Ldap.dll
+C:\zetetic\Zetetic.Ldap\bin\Release\Zetetic.Ldap.pdb
+C:\zetetic\Zetetic.Ldap\bin\Release\NLog.dll
+C:\zetetic\Zetetic.Ldap\bin\Release\NLog.xml
+C:\zetetic\Zetetic.Ldap\obj\Release\ResolveAssemblyReference.cache
+C:\zetetic\Zetetic.Ldap\obj\Release\Zetetic.Ldap.dll
+C:\zetetic\Zetetic.Ldap\obj\Release\Zetetic.Ldap.pdb

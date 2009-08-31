@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRunConfiguration name="Local Test Run" id="9c2f2a09-fcf9-449f-91a3-7c12bb45bec3" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2006">
+  <Description>This is a default test run configuration for a local test run.</Description>
+  <CodeCoverage enabled="true">
+    <Regular>
+      <CodeCoverageItem binaryFile="bin\Debug\Zetetic.Ldap.Schema.dll" pdbFile="bin\Debug\Zetetic.Ldap.Schema.pdb" instrumentInPlace="true" />
+    </Regular>
+  </CodeCoverage>
+  <TestTypeSpecific />
+</TestRunConfiguration>

@@ -1,0 +1,9 @@
+C:\zetetic\Zetetic.Ldap\LdifTests\bin\Release\LdifTests.dll
+C:\zetetic\Zetetic.Ldap\LdifTests\bin\Release\LdifTests.pdb
+C:\zetetic\Zetetic.Ldap\LdifTests\bin\Release\NLog.dll
+C:\zetetic\Zetetic.Ldap\LdifTests\bin\Release\Zetetic.Ldap.dll
+C:\zetetic\Zetetic.Ldap\LdifTests\bin\Release\Zetetic.Ldap.pdb
+C:\zetetic\Zetetic.Ldap\LdifTests\bin\Release\NLog.xml
+C:\zetetic\Zetetic.Ldap\LdifTests\obj\Release\ResolveAssemblyReference.cache
+C:\zetetic\Zetetic.Ldap\LdifTests\obj\Release\LdifTests.dll
+C:\zetetic\Zetetic.Ldap\LdifTests\obj\Release\LdifTests.pdb

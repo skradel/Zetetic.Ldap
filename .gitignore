@@ -1,0 +1,4 @@
+TestResults/
+TestResults/*
+ResolveAssemblyReference.dll
+bin/Debug
