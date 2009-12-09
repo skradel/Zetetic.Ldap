@@ -7,3 +7,12 @@ C:\zetetic\Zetetic.Ldap.Pivoter\bin\Release\NLog.xml
 C:\zetetic\Zetetic.Ldap.Pivoter\obj\Release\ResolveAssemblyReference.cache
 C:\zetetic\Zetetic.Ldap.Pivoter\obj\Release\Zetetic.Ldap.Pivoter.exe
 C:\zetetic\Zetetic.Ldap.Pivoter\obj\Release\Zetetic.Ldap.Pivoter.pdb
+C:\zetetic-ldap\Zetetic.Ldap.Pivoter\bin\Release\Zetetic.Ldap.Pivoter.exe
+C:\zetetic-ldap\Zetetic.Ldap.Pivoter\bin\Release\Zetetic.Ldap.Pivoter.pdb
+C:\zetetic-ldap\Zetetic.Ldap.Pivoter\bin\Release\Zetetic.Ldap.dll
+C:\zetetic-ldap\Zetetic.Ldap.Pivoter\bin\Release\NLog.dll
+C:\zetetic-ldap\Zetetic.Ldap.Pivoter\bin\Release\Zetetic.Ldap.pdb
+C:\zetetic-ldap\Zetetic.Ldap.Pivoter\bin\Release\NLog.xml
+C:\zetetic-ldap\Zetetic.Ldap.Pivoter\obj\Release\ResolveAssemblyReference.cache
+C:\zetetic-ldap\Zetetic.Ldap.Pivoter\obj\Release\Zetetic.Ldap.Pivoter.exe
+C:\zetetic-ldap\Zetetic.Ldap.Pivoter\obj\Release\Zetetic.Ldap.Pivoter.pdb

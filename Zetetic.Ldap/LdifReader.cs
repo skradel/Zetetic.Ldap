@@ -50,6 +50,8 @@ namespace Zetetic.Ldap
 
         public string LastDn { get; protected set; }
 
+        public bool TrimFoldedLines { get; set; }
+
         /// <summary>
         /// Open the ASCII-encoded LDIF file at 'path' for reading.
         /// </summary>
@@ -99,6 +101,12 @@ namespace Zetetic.Ldap
                 return true;
             }
 
+            if (line != null && !_openEntry && !line.StartsWith("dn:"))
+            {
+                // Preamble stuff, such as version: 1
+                return true;
+            }
+
             if (string.IsNullOrEmpty(line))
             {
                 if (_openEntry)
@@ -121,7 +129,10 @@ namespace Zetetic.Ldap
                 string dn = line.Substring(b64 ? 4 : 3).TrimStart();
 
                 while (_source.Peek() == (int)' ')
-                    dn += _source.ReadLine().Substring(1);
+                    if (this.TrimFoldedLines)
+                        dn += _source.ReadLine().Substring(1);
+                    else
+                        dn += _source.ReadLine().Substring(1).TrimStart(' ');
 
                 if (b64) dn = Encoding.UTF8.GetString(Convert.FromBase64String(dn));
                 this.LastDn = dn;
@@ -135,12 +146,25 @@ namespace Zetetic.Ldap
                 int fc = line.IndexOf(':');
                 string attrName = line.Substring(0, fc);
 
-                bool b64 = (line[fc + 1] == ':');
+                string attrVal;
+                bool b64 = false;
 
-                string attrVal = line.Substring(b64 ? fc +2 : fc + 1).TrimStart();
-                
-                while (_source.Peek() == (int)' ')
-                    attrVal += _source.ReadLine().Substring(1);
+                if (fc + 1 == line.Length)
+                {
+                    attrVal = null;
+                }
+                else
+                {
+                    b64 = (line[fc + 1] == ':');
+
+                    attrVal = line.Substring(b64 ? fc + 2 : fc + 1).TrimStart();
+
+                    while (_source.Peek() == (int)' ')
+                        if (this.TrimFoldedLines)
+                            attrVal += _source.ReadLine().Substring(1).TrimStart(' ');
+                        else
+                            attrVal += _source.ReadLine().Substring(1);
+                }
 
                 if (OnAttributeValue != null)
                 {
