@@ -75,6 +75,10 @@ namespace LdifTests
             target.OnAttributeValue += delegate(object sender, AttributeEventArgs args)
             {
                 Console.WriteLine("Attr name {0}, value {1}", args.Name, args.Value);
+                if (args.Value != null && args.Value is byte[])
+                {
+                    Console.WriteLine(" ---> " + ((byte[])args.Value).Length);
+                }
             };
 
             target.OnBeginEntry += delegate(object sender, DnEventArgs args)
@@ -87,7 +91,8 @@ namespace LdifTests
                 Console.WriteLine("End: {0}", args.DistinguishedName);
             };
 
-            while (target.Read())
+            int i = 0;
+            while (target.Read() && i++ < 200)
             {
                 // Do stuff!
             }
