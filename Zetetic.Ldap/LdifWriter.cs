@@ -125,7 +125,14 @@ namespace Zetetic.Ldap
             if (!_openEntry)
                 throw new ApplicationException("No open entry");
 
-            WriteFolded("{0}:: {1}", attrName, Convert.ToBase64String(value));
+            if (value == null || value.Length == 0)
+            {
+                WriteFolded("{0}::", attrName);
+            }
+            else
+            {
+                WriteFolded("{0}:: {1}", attrName, Convert.ToBase64String(value));
+            }
         }
 
         /// <summary>
@@ -139,7 +146,11 @@ namespace Zetetic.Ldap
             if (!_openEntry)
                 throw new ApplicationException("No open entry");
 
-            if (IsSafeString(value))
+            if (string.IsNullOrEmpty(value))
+            {
+                WriteFolded("{0}:", attrName);
+            }
+            else if (IsSafeString(value))
             {
                 WriteFolded("{0}: {1}", attrName, value);
             }

@@ -7,6 +7,15 @@ C:\zetetic\Zetetic.Ldap.Pivoter\bin\Release\NLog.xml
 C:\zetetic\Zetetic.Ldap.Pivoter\obj\Release\ResolveAssemblyReference.cache
 C:\zetetic\Zetetic.Ldap.Pivoter\obj\Release\Zetetic.Ldap.Pivoter.exe
 C:\zetetic\Zetetic.Ldap.Pivoter\obj\Release\Zetetic.Ldap.Pivoter.pdb
+C:\Zetetic.Ldap\Zetetic.Ldap.Pivoter\bin\Release\Zetetic.Ldap.Pivoter.exe
+C:\Zetetic.Ldap\Zetetic.Ldap.Pivoter\bin\Release\Zetetic.Ldap.Pivoter.pdb
+C:\Zetetic.Ldap\Zetetic.Ldap.Pivoter\bin\Release\Zetetic.Ldap.dll
+C:\Zetetic.Ldap\Zetetic.Ldap.Pivoter\bin\Release\NLog.dll
+C:\Zetetic.Ldap\Zetetic.Ldap.Pivoter\bin\Release\Zetetic.Ldap.pdb
+C:\Zetetic.Ldap\Zetetic.Ldap.Pivoter\bin\Release\NLog.xml
+C:\Zetetic.Ldap\Zetetic.Ldap.Pivoter\obj\Release\ResolveAssemblyReference.cache
+C:\Zetetic.Ldap\Zetetic.Ldap.Pivoter\obj\Release\Zetetic.Ldap.Pivoter.exe
+C:\Zetetic.Ldap\Zetetic.Ldap.Pivoter\obj\Release\Zetetic.Ldap.Pivoter.pdb
 C:\zetetic-ldap\Zetetic.Ldap.Pivoter\bin\Release\Zetetic.Ldap.Pivoter.exe
 C:\zetetic-ldap\Zetetic.Ldap.Pivoter\bin\Release\Zetetic.Ldap.Pivoter.pdb
 C:\zetetic-ldap\Zetetic.Ldap.Pivoter\bin\Release\Zetetic.Ldap.dll

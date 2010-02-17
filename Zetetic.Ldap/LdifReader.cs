@@ -50,6 +50,11 @@ namespace Zetetic.Ldap
 
         public string LastDn { get; protected set; }
 
+        /// <summary>
+        /// Some LDIF implementations might use more than one space on folded lines.  If TrimFoldedLines
+        /// is true, we will eliminate *all* initial whitespace on each folded line.  Note that exactly
+        /// one space is correct per RFC 2849. 
+        /// </summary>
         public bool TrimFoldedLines { get; set; }
 
         /// <summary>

@@ -127,9 +127,6 @@ namespace Zetetic.Ldap
             if (string.IsNullOrEmpty(attrName))
                 throw new ArgumentNullException("attrName");
 
-            if (attrValue == null)
-                throw new ArgumentNullException("attrValue");
-
             string key = attrName.ToLowerInvariant();
 
             if (this.Attrs.ContainsKey(key))
