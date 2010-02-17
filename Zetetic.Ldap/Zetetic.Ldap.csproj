@@ -46,6 +46,8 @@
     <Compile Include="MutableEntry.cs" />
     <Compile Include="MutableEntryCollection.cs" />
     <Compile Include="PivotColumn.cs" />
+    <Compile Include="RangeHelper.cs" />
+    <Compile Include="RangeResult.cs" />
     <Compile Include="Schema\AttributeSchema.cs" />
     <Compile Include="Schema\AttrLangType.cs" />
     <Compile Include="Schema\AdsSchemaInfo.cs" />
