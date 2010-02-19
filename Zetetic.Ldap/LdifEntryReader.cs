@@ -6,7 +6,7 @@ namespace Zetetic.Ldap
 {
     
 
-    public class LdifEntryReader : IDisposable
+    public class LdifEntryReader : IDisposable, IEnumerable<Entry>
     {
         private LdifReader _ldif;
         protected Entry _work;
@@ -78,5 +78,24 @@ namespace Zetetic.Ldap
         {
             Dispose();
         }
+
+        #region IEnumerable<Entry> Members
+
+        public IEnumerator<Entry> GetEnumerator()
+        {
+            for (Entry e = this.ReadEntry(); e != null; e = this.ReadEntry())
+                yield return e;
+        }
+
+        #endregion
+
+        #region IEnumerable Members
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
+            return this.GetEnumerator();
+        }
+
+        #endregion
     }
 }

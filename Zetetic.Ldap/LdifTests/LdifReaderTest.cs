@@ -4,8 +4,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace LdifTests
 {
-    
-    
+
+
     /// <summary>
     ///This is a test class for LdifReaderTest and is intended
     ///to contain all LdifReaderTest Unit Tests
@@ -69,13 +69,10 @@ namespace LdifTests
             int read = 0;
             using (var reader = new LdifEntryReader(new LdifReader(@"c:\temp\testinput.ldif")))
             {
-                var e = reader.ReadEntry();
-                while (e != null)
+                foreach (Entry e in reader)
                 {
                     Console.WriteLine("Read: {0}", e.DistinguishedName ?? "null");
-
                     read++;
-                    e = reader.ReadEntry();
                 }
             }
             Assert.IsTrue(read == 1, "Should read exactly one entry");
@@ -117,6 +114,6 @@ namespace LdifTests
             Assert.Inconclusive("TODO: Implement code to verify target");
         }
 
-        
+
     }
 }
