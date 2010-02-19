@@ -72,7 +72,7 @@ namespace LdifTests
                 var e = reader.ReadEntry();
                 while (e != null)
                 {
-                    Console.WriteLine("Read: {0}", e.DistinguishedName);
+                    Console.WriteLine("Read: {0}", e.DistinguishedName ?? "null");
 
                     read++;
                     e = reader.ReadEntry();

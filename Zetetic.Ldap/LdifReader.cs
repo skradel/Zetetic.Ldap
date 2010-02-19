@@ -47,6 +47,7 @@ namespace Zetetic.Ldap
         private TextReader _source;
         private bool _ownsStream;
         private bool _openEntry;
+        private long _lineNum;
 
         public string LastDn { get; protected set; }
 
@@ -61,7 +62,7 @@ namespace Zetetic.Ldap
         /// Open the ASCII-encoded LDIF file at 'path' for reading.
         /// </summary>
         /// <param name="path"></param>
-        public LdifReader(string path) 
+        public LdifReader(string path)
         {
             _source = new StreamReader(new FileStream(path, FileMode.Open, FileAccess.Read), Encoding.ASCII);
             _ownsStream = true;
@@ -100,16 +101,21 @@ namespace Zetetic.Ldap
         {
             string line = _source.ReadLine();
 
-            if (line != null && line.StartsWith("#"))
+            if (line != null)
             {
-                // Skip comment line
-                return true;
-            }
+                _lineNum++;
 
-            if (line != null && !_openEntry && !line.StartsWith("dn:"))
-            {
-                // Preamble stuff, such as version: 1
-                return true;
+                if (line.StartsWith("#"))
+                {
+                    // Skip comment line
+                    return true;
+                }
+
+                if (!_openEntry && !line.StartsWith("dn:", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    // Preamble stuff, such as version: 1
+                    return true;
+                }
             }
 
             if (string.IsNullOrEmpty(line))
@@ -122,33 +128,49 @@ namespace Zetetic.Ldap
                         OnEndEntry(this, new DnEventArgs(this.LastDn));
                 }
 
-                // End of file
+                // End of file?
                 return (line != null);
             }
 
-            if (line.StartsWith("dn:"))
+            if (line.StartsWith("dn:", StringComparison.InvariantCultureIgnoreCase))
             {
                 _openEntry = true;
 
-                bool b64 = (line[3] == ':');
-                string dn = line.Substring(b64 ? 4 : 3).TrimStart();
+                string dn;
 
-                while (_source.Peek() == (int)' ')
-                    if (this.TrimFoldedLines)
-                        dn += _source.ReadLine().Substring(1);
-                    else
-                        dn += _source.ReadLine().Substring(1).TrimStart(' ');
+                if (line.TrimEnd(' ').ToLowerInvariant() == "dn:")
+                {
+                    dn = null;
+                }
+                else
+                {
+                    bool b64 = (line[3] == ':');
+                    dn = line.Substring(b64 ? 4 : 3).TrimStart();
 
-                if (b64) dn = Encoding.UTF8.GetString(Convert.FromBase64String(dn));
+                    while (_source.Peek() == (int)' ')
+                        if (this.TrimFoldedLines)
+                            dn += _source.ReadLine().Substring(1).TrimStart(' ');
+                        else
+                            dn += _source.ReadLine().Substring(1);
+
+                    if (b64) dn = Encoding.UTF8.GetString(Convert.FromBase64String(dn));
+                }
+
                 this.LastDn = dn;
 
                 if (OnBeginEntry != null)
                     OnBeginEntry(this, new DnEventArgs(dn));
-                
+
             }
             else
             {
                 int fc = line.IndexOf(':');
+
+                // Note that the parser will currently NOT read changetype-oriented
+                // LDIF ('-' on a line by itself between attr instructions).
+                if (fc == -1)
+                    throw new ApplicationException("Malformed LDIF on line " + _lineNum);
+
                 string attrName = line.Substring(0, fc);
 
                 string attrVal;
