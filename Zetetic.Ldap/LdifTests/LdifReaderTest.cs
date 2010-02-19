@@ -63,6 +63,23 @@ namespace LdifTests
         //
         #endregion
 
+        [TestMethod()]
+        public void LdifEntryReaderReadOneEntryTest()
+        {
+            int read = 0;
+            using (var reader = new LdifEntryReader(new LdifReader(@"c:\temp\testinput.ldif")))
+            {
+                var e = reader.ReadEntry();
+                while (e != null)
+                {
+                    Console.WriteLine("Read: {0}", e.DistinguishedName);
+
+                    read++;
+                    e = reader.ReadEntry();
+                }
+            }
+            Assert.IsTrue(read == 1, "Should read exactly one entry");
+        }
 
         /// <summary>
         ///A test for LdifReader Constructor

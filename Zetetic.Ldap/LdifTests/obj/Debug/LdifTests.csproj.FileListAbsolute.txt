@@ -16,3 +16,12 @@ C:\zetetic\Zetetic.Ldap\LdifTests\bin\Debug\NLog.xml
 C:\zetetic\Zetetic.Ldap\LdifTests\obj\Debug\ResolveAssemblyReference.cache
 C:\zetetic\Zetetic.Ldap\LdifTests\obj\Debug\LdifTests.dll
 C:\zetetic\Zetetic.Ldap\LdifTests\obj\Debug\LdifTests.pdb
+C:\zetetic-ldap\Zetetic.Ldap\LdifTests\obj\Debug\ResolveAssemblyReference.cache
+C:\zetetic-ldap\Zetetic.Ldap\LdifTests\obj\Debug\LdifTests.dll
+C:\zetetic-ldap\Zetetic.Ldap\LdifTests\obj\Debug\LdifTests.pdb
+C:\zetetic-ldap\Zetetic.Ldap\LdifTests\bin\Debug\LdifTests.dll
+C:\zetetic-ldap\Zetetic.Ldap\LdifTests\bin\Debug\LdifTests.pdb
+C:\zetetic-ldap\Zetetic.Ldap\LdifTests\bin\Debug\NLog.dll
+C:\zetetic-ldap\Zetetic.Ldap\LdifTests\bin\Debug\Zetetic.Ldap.dll
+C:\zetetic-ldap\Zetetic.Ldap\LdifTests\bin\Debug\Zetetic.Ldap.pdb
+C:\zetetic-ldap\Zetetic.Ldap\LdifTests\bin\Debug\NLog.xml

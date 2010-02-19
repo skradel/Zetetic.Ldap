@@ -47,6 +47,15 @@ namespace Zetetic.Ldap
                 }
             }
 
+            // Bugfix - github issue 4
+            // Without this extra check, we require an extra newline (or other non-entry content)
+            // at the end of the file.
+            if (_complete)
+            {
+                _complete = false;
+                return _work;
+            }
+
             return null;
         }
 
