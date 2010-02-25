@@ -4,4 +4,6 @@
 TestResults/
 TestResults/*
 ResolveAssemblyReference.dll
+*.FileListAbsolute.txt
+obj/Debug
 bin/Debug
