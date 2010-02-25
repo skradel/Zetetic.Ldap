@@ -5,3 +5,5 @@ TestResults/
 TestResults/*
 ResolveAssemblyReference.dll
 bin/Debug
+obj/Debug
+

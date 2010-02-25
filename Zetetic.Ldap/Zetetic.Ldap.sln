@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LdifTests", "LdifTests\Ldif
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zetetic.Ldap.Pivoter", "..\Zetetic.Ldap.Pivoter\Zetetic.Ldap.Pivoter.csproj", "{0DCE6C3E-D8B7-48BC-B64D-6EA9187196D3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zetetic.Ldap.AdsImportPrep", "..\Zetetic.Ldap.AdsImportPrep\Zetetic.Ldap.AdsImportPrep.csproj", "{F9D51235-D4C5-4952-8DAB-5ED50213693E}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Zetetic.Ldap.Schema.vsmdi
@@ -40,6 +42,10 @@ Global
 		{0DCE6C3E-D8B7-48BC-B64D-6EA9187196D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0DCE6C3E-D8B7-48BC-B64D-6EA9187196D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0DCE6C3E-D8B7-48BC-B64D-6EA9187196D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9D51235-D4C5-4952-8DAB-5ED50213693E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9D51235-D4C5-4952-8DAB-5ED50213693E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9D51235-D4C5-4952-8DAB-5ED50213693E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9D51235-D4C5-4952-8DAB-5ED50213693E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
