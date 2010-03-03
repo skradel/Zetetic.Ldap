@@ -12,16 +12,60 @@ namespace Zetetic.Ldap
     /// </summary>
     public class AdsImportPrep
     {
-        public void ReformatLdif(LdifReader r, LdifWriter w, Encoding enc, string defaultPwd, List<string> ignoredAttrs)
+        public void ReformatLdif(LdifReader r, LdifWriter w, Encoding passwordEncoding, string defaultPwd, List<string> ignoredAttrs,
+            bool allowMsExchange, Func<string, bool> ignoreIt)
         {
+            if (!allowMsExchange)
+            {
+                ignoredAttrs.Add("showinaddressbook");
+                ignoredAttrs.Add("legacyexchangedn");
+                ignoredAttrs.Add("homemta");
+                ignoredAttrs.Add("homemdb");
+                ignoredAttrs.Add("mailnickname");
+                ignoredAttrs.Add("mdbusedefaults");
+                ignoredAttrs.Add("publicdelegatesbl");
+                ignoredAttrs.Add("protocolsettings");
+                ignoredAttrs.Add("publicdelegates");
+                ignoredAttrs.Add("deleteditemflags");
+                ignoredAttrs.Add("mDBStorageQuota".ToLowerInvariant());
+                ignoredAttrs.Add("mDBOverQuotaLimit".ToLowerInvariant());
+                ignoredAttrs.Add("garbageCollPeriod".ToLowerInvariant());
+                ignoredAttrs.Add("mDBOverHardQuotaLimit".ToLowerInvariant());
+                ignoredAttrs.Add("altrecipient");
+                ignoredAttrs.Add("deliverandredirect");
+                ignoredAttrs.Add("securityprotocol");
+                ignoredAttrs.Add("reporttooriginator");
+                ignoredAttrs.Add("reporttoowner");
+                ignoredAttrs.Add("oOFReplyToOriginator".ToLowerInvariant());
+                ignoredAttrs.Add("mAPIRecipient".ToLowerInvariant());
+                ignoredAttrs.Add("internetencoding");
+                ignoredAttrs.Add("targetaddress");
+                ignoredAttrs.Add("altRecipientBL");
+                ignoredAttrs.Add("mAPIRecipient".ToLowerInvariant());
+
+
+
+            }
+
             bool ignored = false;
             int pwdScore = 0;
+            string thisDn = null;
 
             r.OnBeginEntry += (s, a) =>
             {
+                thisDn = a.DistinguishedName;
+
+                if (ignoreIt != null && ignoreIt.Invoke(a.DistinguishedName))
+                {
+                    ignored = true;
+                }
                 // Ignore domain trusts / special accounts
                 // This part could use some rethinking.
-                if (a.DistinguishedName.Contains("$,CN=Users,") || a.DistinguishedName.Contains("krbtgt"))
+                else if (a.DistinguishedName.Contains("$,CN=Users,") || a.DistinguishedName.Contains("krbtgt") || a.DistinguishedName.Contains("ForeignSecurityP"))
+                {
+                    ignored = true;
+                }
+                else if (!allowMsExchange && a.DistinguishedName.Contains("Exchange System"))
                 {
                     ignored = true;
                 }
@@ -37,7 +81,7 @@ namespace Zetetic.Ldap
                 if (!ignored)
                 {
                     if (pwdScore > 1)
-                        w.WriteAttr("unicodePwd", enc.GetBytes(
+                        w.WriteAttr("unicodePwd", passwordEncoding.GetBytes(
                             string.Format("\"{0}\"", defaultPwd))
                             );
 
@@ -50,25 +94,50 @@ namespace Zetetic.Ldap
             {
                 if (!ignored)
                 {
-                    if (a.Name == "objectCategory" && "CN=Person,CN=Schema,CN=Configuration,DC=kad1,DC=local".Equals(a.Value))
+
+                    if (a.Name == "objectCategory" && ((string)a.Value).StartsWith("CN=Person"))
                         pwdScore++;
                     if (a.Name == "objectClass" && "user".Equals(a.Value))
                         pwdScore++;
 
-                    if (a.Value != null && !ignoredAttrs.Contains(a.Name.ToLowerInvariant()))
+                    if (string.Equals(a.Name, "objectSID", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        if (a.Value is string)
+                        if (thisDn.IndexOf("ForeignSecurity", StringComparison.InvariantCultureIgnoreCase) > 0)
                         {
-                            w.WriteAttr(a.Name, (string)a.Value);
+                            if (a.Value is byte[])
+                            {
+                                System.Security.Principal.SecurityIdentifier sid = new System.Security.Principal.SecurityIdentifier((byte[])a.Value, 0);
+
+                                w.WriteAttr(a.Name, sid.ToString());
+                            }
+                            else if (a.Value is string)
+                            {
+                                w.WriteAttr(a.Name, (string)a.Value);
+                            }
                         }
-                        else if (a.Value is byte[])
+                    }
+                    else
+                    {
+                        if (a.Value != null && !ignoredAttrs.Contains(a.Name.ToLowerInvariant()))
                         {
-                            w.WriteAttr(a.Name, (byte[])a.Value);
-                        }
-                        else
-                        {
-                            Console.Error.WriteLine("Warn: type of {0} is {1}", a.Name, a.Value.GetType());
-                            w.WriteAttr(a.Name, Convert.ToString(a.Value));
+                            if (allowMsExchange ||
+                                (!a.Name.StartsWith("msExch", StringComparison.InvariantCultureIgnoreCase)
+                                  && !a.Name.StartsWith("extensionAttribute")))
+                            {
+                                if (a.Value is string)
+                                {
+                                    w.WriteAttr(a.Name, (string)a.Value);
+                                }
+                                else if (a.Value is byte[])
+                                {
+                                    w.WriteAttr(a.Name, (byte[])a.Value);
+                                }
+                                else
+                                {
+                                    Console.Error.WriteLine("Warn: type of {0} is {1}", a.Name, a.Value.GetType());
+                                    w.WriteAttr(a.Name, Convert.ToString(a.Value));
+                                }
+                            }
                         }
                     }
                 }
@@ -84,15 +153,21 @@ namespace Zetetic.Ldap
 
         public void IMain(string[] args)
         {
+            // Note default password encoding is UTF-16 LE
+
             string fileIn = null, fileOut = null, defaultPwd = "1FakePwd50!", extraIgnores = null;
-            Encoding enc = new UnicodeEncoding(true, false, true);
+            Encoding passwordEncoding = new System.Text.UnicodeEncoding(false, false, true), srcenc = System.Text.Encoding.ASCII;
 
             for (int i = 0; i < args.Length; i++)
             {
                 switch (args[i])
                 {
+                    case "-srcenc":
+                        srcenc = Encoding.GetEncoding(args[++i]);
+                        break;
+
                     case "-enc":
-                        enc = Encoding.GetEncoding(args[++i]);
+                        passwordEncoding = Encoding.GetEncoding(args[++i]);
                         break;
 
                     case "-i":
@@ -111,28 +186,38 @@ namespace Zetetic.Ldap
                     case "-e":
                         extraIgnores = args[++i];
                         break;
+
+                    default:
+                        Console.Error.WriteLine("Unknown argument {0}", args[i]);
+                        break;
                 }
             }
 
             // Standard list of system / operational attributes to ignore
             // Add to this list with the -e argument.
             List<string> ignoredAttrs = new List<string>(){
-                "samaccounttype", "memberof", "objectsid", "sidhistory", "objectguid",
+                "samaccounttype", "memberof", "sidhistory", "objectguid",
                 "badpasswordtime", "lockouttime", "instancetype", "dscorepropagationdata",
                 "whencreated", "whenchanged", "usncreated", "usnchanged", "name",
                 "pwdlastset", "primarygroupid", "admincount", "logoncount", "badpwdcount",
                 "lastlogon", "lastlogontimestamp", "lastlogoff", "localpolicyflags",
-                "iscriticalsystemobject"
+                "iscriticalsystemobject", "systemflags", "showinadvancedviewonly"
                 };
 
             if (!string.IsNullOrEmpty(extraIgnores))
-                ignoredAttrs.AddRange(extraIgnores.Split(','));
+                ignoredAttrs.AddRange(extraIgnores.Split(',').Select(word => word.ToLowerInvariant()));
 
-            using (LdifReader r = new LdifReader(fileIn))
+            Console.Error.WriteLine("Source file {0}, encoding {1}", fileIn, srcenc);
+
+            using (System.IO.TextReader tr = new System.IO.StreamReader(fileIn, srcenc))
             {
-                using (LdifWriter w = new LdifWriter(fileOut))
+                using (LdifReader r = new LdifReader(tr))
                 {
-                    this.ReformatLdif(r, w, enc, defaultPwd, ignoredAttrs);
+                    using (LdifWriter w = new LdifWriter(fileOut))
+                    {
+                        this.ReformatLdif(r, w, passwordEncoding, defaultPwd, ignoredAttrs, false,
+                            null);
+                    }
                 }
             }
         }
