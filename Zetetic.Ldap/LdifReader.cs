@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using System.Net;
 
 namespace Zetetic.Ldap
 {
@@ -174,7 +175,7 @@ namespace Zetetic.Ldap
                 string attrName = line.Substring(0, fc);
 
                 string attrVal;
-                bool b64 = false;
+                bool b64 = false, url = false;
 
                 if (fc + 1 == line.Length)
                 {
@@ -183,8 +184,12 @@ namespace Zetetic.Ldap
                 else
                 {
                     b64 = (line[fc + 1] == ':');
+                    url = (line[fc + (b64 ? 2 : 1)] == '<');
 
                     attrVal = line.Substring(b64 ? fc + 2 : fc + 1).TrimStart();
+
+                    if (url)
+                        attrVal = attrVal.Substring(1);
 
                     while (_source.Peek() == (int)' ')
                         if (this.TrimFoldedLines)
@@ -195,10 +200,35 @@ namespace Zetetic.Ldap
 
                 if (OnAttributeValue != null)
                 {
-                    if (b64)
-                        OnAttributeValue(this, new AttributeEventArgs(attrName, Convert.FromBase64String(attrVal)));
+                    if (attrVal == null)
+                    {
+                        OnAttributeValue(this, new AttributeEventArgs(attrName, null));
+                    }
+                    else if (b64)
+                    {
+                        byte[] bytes = Convert.FromBase64String(attrVal);
+                        if (url)
+                        {
+                            System.Uri uri = new Uri(System.Text.Encoding.UTF8.GetString(bytes));
+                            OnAttributeValue(this, new AttributeEventArgs(attrName, uri));
+                        }
+                        else
+                        {
+                            OnAttributeValue(this, new AttributeEventArgs(attrName, bytes));
+                        }
+                    }
                     else
-                        OnAttributeValue(this, new AttributeEventArgs(attrName, attrVal));
+                    {
+                        if (url)
+                        {
+                            System.Uri uri = new Uri(attrVal);
+                            OnAttributeValue(this, new AttributeEventArgs(attrName, uri));
+                        }
+                        else
+                        {
+                            OnAttributeValue(this, new AttributeEventArgs(attrName, attrVal));
+                        }
+                    }
                 }
             }
 

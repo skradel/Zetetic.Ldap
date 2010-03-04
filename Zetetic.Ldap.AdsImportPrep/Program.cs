@@ -122,7 +122,7 @@ namespace Zetetic.Ldap
                 "whencreated", "whenchanged", "usncreated", "usnchanged", "name",
                 "pwdlastset", "primarygroupid", "admincount", "logoncount", "badpwdcount",
                 "lastlogon", "lastlogontimestamp", "lastlogoff", "localpolicyflags",
-                "iscriticalsystemobject"
+                "iscriticalsystemobject", "manager", "directreports"
                 };
 
             if (!string.IsNullOrEmpty(extraIgnores))
