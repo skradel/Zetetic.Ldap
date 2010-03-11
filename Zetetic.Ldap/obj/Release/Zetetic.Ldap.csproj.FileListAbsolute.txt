@@ -14,8 +14,8 @@ C:\Zetetic.Ldap\Zetetic.Ldap\obj\Release\Zetetic.Ldap.dll
 C:\Zetetic.Ldap\Zetetic.Ldap\obj\Release\Zetetic.Ldap.pdb
 C:\zetetic-ldap\Zetetic.Ldap\bin\Release\Zetetic.Ldap.dll
 C:\zetetic-ldap\Zetetic.Ldap\bin\Release\Zetetic.Ldap.pdb
+C:\zetetic-ldap\Zetetic.Ldap\bin\Release\NLog.dll
 C:\zetetic-ldap\Zetetic.Ldap\bin\Release\NLog.xml
 C:\zetetic-ldap\Zetetic.Ldap\obj\Release\ResolveAssemblyReference.cache
 C:\zetetic-ldap\Zetetic.Ldap\obj\Release\Zetetic.Ldap.dll
 C:\zetetic-ldap\Zetetic.Ldap\obj\Release\Zetetic.Ldap.pdb
-C:\zetetic-ldap\Zetetic.Ldap\bin\Release\NLog.dll

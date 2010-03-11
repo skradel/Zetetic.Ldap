@@ -50,6 +50,7 @@ namespace Zetetic.Ldap
             r.OnBeginEntry += (s, a) =>
             {
                 thisDn = a.DistinguishedName;
+
                 hasPw = false;
 
                 if (ignoreIt != null && ignoreIt.Invoke(a.DistinguishedName))
@@ -78,6 +79,7 @@ namespace Zetetic.Ldap
                 if (!ignored)
                 {
                     if (pwdScore > 1 && !hasPw)
+
                         w.WriteAttr("unicodePwd", passwordEncoding.GetBytes(
                             string.Format("\"{0}\"", defaultPwd))
                             );
@@ -91,12 +93,12 @@ namespace Zetetic.Ldap
             {
                 if (!ignored)
                 {
+
                     if (a.Name == "unicodePwd")
                         hasPw = true;
-
-                    if (a.Name == "objectCategory" && ((string)a.Value).StartsWith("CN=Person"))
+                    else if (a.Name == "objectCategory" && ((string)a.Value).StartsWith("CN=Person"))
                         pwdScore++;
-                    if (a.Name == "objectClass" && "user".Equals(a.Value))
+                    else if (a.Name == "objectClass" && "user".Equals(a.Value))
                         pwdScore++;
 
                     if (string.Equals(a.Name, "objectSID", StringComparison.InvariantCultureIgnoreCase))
@@ -154,6 +156,7 @@ namespace Zetetic.Ldap
         {
             // Note default password encoding is UTF-16 LE
 
+
             bool msExch = false;
             string fileIn = null, fileOut = null, defaultPwd = "1FakePwd50!", extraIgnores = null;
             Encoding passwordEncoding = new System.Text.UnicodeEncoding(false, false, true), srcenc = Encoding.GetEncoding("iso-8859-1");
@@ -207,7 +210,8 @@ namespace Zetetic.Ldap
                 "lastlogon", "lastlogontimestamp", "lastlogoff", "localpolicyflags",
                 "iscriticalsystemobject", "manager", "directreports",
                 "systemflags", "showinadvancedviewonly", "managedobjects", 
-                "managedby", "unixuserpassword", "netbootscpbl"
+                "managedby", "unixuserpassword", "netbootscpbl",
+                "iscriticalsystemobject", "systemflags", "showinadvancedviewonly"
                 };
 
             if (!string.IsNullOrEmpty(extraIgnores))
