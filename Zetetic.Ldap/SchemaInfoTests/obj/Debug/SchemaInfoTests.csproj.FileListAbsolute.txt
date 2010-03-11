@@ -16,3 +16,12 @@ C:\zetetic\Zetetic.Ldap\SchemaInfoTests\bin\Debug\NLog.xml
 C:\zetetic\Zetetic.Ldap\SchemaInfoTests\obj\Debug\ResolveAssemblyReference.cache
 C:\zetetic\Zetetic.Ldap\SchemaInfoTests\obj\Debug\SchemaInfoTests.dll
 C:\zetetic\Zetetic.Ldap\SchemaInfoTests\obj\Debug\SchemaInfoTests.pdb
+C:\zetetic-ldap\Zetetic.Ldap\SchemaInfoTests\bin\Debug\SchemaInfoTests.dll
+C:\zetetic-ldap\Zetetic.Ldap\SchemaInfoTests\bin\Debug\SchemaInfoTests.pdb
+C:\zetetic-ldap\Zetetic.Ldap\SchemaInfoTests\bin\Debug\Zetetic.Ldap.dll
+C:\zetetic-ldap\Zetetic.Ldap\SchemaInfoTests\bin\Debug\NLog.dll
+C:\zetetic-ldap\Zetetic.Ldap\SchemaInfoTests\bin\Debug\Zetetic.Ldap.pdb
+C:\zetetic-ldap\Zetetic.Ldap\SchemaInfoTests\bin\Debug\NLog.xml
+C:\zetetic-ldap\Zetetic.Ldap\SchemaInfoTests\obj\Debug\ResolveAssemblyReference.cache
+C:\zetetic-ldap\Zetetic.Ldap\SchemaInfoTests\obj\Debug\SchemaInfoTests.dll
+C:\zetetic-ldap\Zetetic.Ldap\SchemaInfoTests\obj\Debug\SchemaInfoTests.pdb

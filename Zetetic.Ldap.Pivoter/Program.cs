@@ -31,7 +31,7 @@ namespace Zetetic.Ldap.Pivoter
             }
         }
 
-        private static void Run(List<string> ldifs, string colConfig)
+        private static void Run(List<string> ldifs, string colConfig, string fileOut)
         {
             System.Xml.Serialization.XmlSerializer ser = new System.Xml.Serialization.XmlSerializer(
                 typeof(List<PivotColumn>));
@@ -59,18 +59,29 @@ namespace Zetetic.Ldap.Pivoter
                 }
             }
 
-            int i = 0;
-            foreach (string s in ldifs)
+            if (!string.IsNullOrEmpty(fileOut))
+                pivot.Output = new System.IO.StreamWriter(fileOut, false, new System.Text.UTF8Encoding(false, true));
+
+            try
             {
-                try
+                int i = 0;
+                foreach (string s in ldifs)
                 {
-                    pivot.Process(s, i++ == 0);
+                    try
+                    {
+                        pivot.Process(s, i++ == 0);
+                    }
+                    catch (Exception)
+                    {
+                        Console.Error.WriteLine("Failed on file {0}", s);
+                        throw;
+                    }
                 }
-                catch (Exception)
-                {
-                    Console.Error.WriteLine("Failed on file {0}", s);
-                    throw;
-                }
+            }
+            finally
+            {
+                if (!string.IsNullOrEmpty(fileOut))
+                    pivot.Output.Dispose();
             }
         }
 
@@ -83,7 +94,7 @@ namespace Zetetic.Ldap.Pivoter
             Console.WriteLine(@"file for relational analysis.  It uses the Zetetic.Ldap library for");
             Console.WriteLine(@"advanced LDIF parsing.");
             Console.WriteLine(@"");
-            Console.WriteLine(@"Zetetic.Ldap.Pivoter.exe -f <ldif spec> [-c columnConfig.xml]");
+            Console.WriteLine(@"Zetetic.Ldap.Pivoter.exe -f <ldif spec> [-c columnConfig.xml] [-o outfile.txt]");
             Console.WriteLine(@"");
             Console.WriteLine(@"<ldif spec> = a comma-separated list of LDIF paths");
             Console.WriteLine(@"  For wildcard support, separate the path and search pattern with ]");
@@ -93,6 +104,9 @@ namespace Zetetic.Ldap.Pivoter
             Console.WriteLine(@"how to handle them (for example, whether or not to join all the values");
             Console.WriteLine(@"from multivalued attributes).");
             Console.WriteLine(@"");
+            Console.WriteLine(@"If specified, 'outfile' will be UTF8 encoded (without BOM).");
+            Console.WriteLine(@"Any existing file will be replaced.");
+            Console.WriteLine(@"");
             Console.WriteLine(@"If you call Pivoter without any columnConfig, one will be generated");
             Console.WriteLine(@"for you at {0}, if that file does not already exist.", SamplePath);
             Console.WriteLine(@"");
@@ -101,7 +115,7 @@ namespace Zetetic.Ldap.Pivoter
         static void Main(string[] args)
         {
             List<string> ldifs = new List<string>();
-            string colConfig = null;
+            string colConfig = null, fileOut = null;
             bool wantUsage = false;
 
             try
@@ -112,6 +126,10 @@ namespace Zetetic.Ldap.Pivoter
                     {
                         case "-?":
                             wantUsage = true;
+                            break;
+
+                        case "-o":
+                            fileOut = args[++i];
                             break;
 
                         case "-f":
@@ -151,7 +169,7 @@ namespace Zetetic.Ldap.Pivoter
                 }
                 else
                 {
-                    Run(ldifs, colConfig);
+                    Run(ldifs, colConfig, fileOut);
                 }
             }
             catch (Exception e)

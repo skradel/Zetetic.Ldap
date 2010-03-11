@@ -24,7 +24,12 @@ namespace Zetetic.Ldap
 
         public void Process(string path, bool emitHeader)
         {
-            using (StreamReader sr = new StreamReader(path))
+            Process(path, emitHeader, Encoding.GetEncoding("iso-8859-1"));
+        }
+
+        public void Process(string path, bool emitHeader, Encoding encoding)
+        {
+            using (StreamReader sr = new StreamReader(path, encoding))
             {
                 Process(sr, emitHeader);
             }

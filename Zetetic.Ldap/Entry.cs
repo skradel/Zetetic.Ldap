@@ -24,6 +24,8 @@ namespace Zetetic.Ldap
         [XmlElement("attribute")]
         protected readonly Dictionary<string, Attr> Attrs = new Dictionary<string, Attr>();
 
+        private static readonly UTF8Encoding Utf8Helper = new UTF8Encoding(false, true);
+
         public Entry(string distinguishedName)
         {
             this.DistinguishedName = distinguishedName;
@@ -180,7 +182,24 @@ namespace Zetetic.Ldap
                 string[] s = new string[v.Length];
 
                 for (int i = 0; i < v.Length; i++)
-                    s[i] = Convert.ToString(v[i]);
+                {
+                    object o = v[i];
+                    if (o is byte[] && o != null && ((byte[])o).Length > 0)
+                    {
+                        try
+                        {
+                            s[i] = Utf8Helper.GetString((byte[])o);
+                        }
+                        catch (Exception)
+                        {
+                            s[i] = Convert.ToString(o);
+                        }
+                    }
+                    else
+                    {
+                        s[i] = Convert.ToString(o);
+                    }
+                }
 
                 return s;
             }
