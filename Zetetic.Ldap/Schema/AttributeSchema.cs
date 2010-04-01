@@ -10,6 +10,7 @@ namespace Zetetic.Ldap.Schema
         public string DisplayName { get; internal set; }
         public string OID { get; internal set; }
         public AttrLangType LangType { get; internal set; }
+        public int SearchFlags { get; set; }
 
         public override string ToString()
         {

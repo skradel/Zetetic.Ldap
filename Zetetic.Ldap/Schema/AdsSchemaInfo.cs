@@ -115,7 +115,8 @@ namespace Zetetic.Ldap.Schema
                 "lDAPDisplayName",
                 "isSingleValued",
                 "attributeSyntax",
-                "attributeID"
+                "attributeID",
+                "searchFlags"
             };
 
             req = new SearchRequest(schemaNcDn, "(&(objectClass=attributeSchema))", SearchScope.Subtree, wantedAttrs);
@@ -132,7 +133,8 @@ namespace Zetetic.Ldap.Schema
                         DisplayName = attrName,
                         IsMultiValued = !"TRUE".Equals(StringOrNull(se, wantedAttrs[1])),
                         LangType = this.InferType(StringOrNull(se, wantedAttrs[2])),
-                        OID = StringOrNull(se, wantedAttrs[3])
+                        OID = StringOrNull(se, wantedAttrs[3]),
+                        SearchFlags = Convert.ToInt32(StringOrNull(se, wantedAttrs[4]) ?? "0")
                     });
                 }
                 catch (Exception ex)
