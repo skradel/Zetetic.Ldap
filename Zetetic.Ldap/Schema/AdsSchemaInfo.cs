@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Security.Principal;
@@ -119,10 +119,17 @@ namespace Zetetic.Ldap.Schema
                 "searchFlags"
             };
 
-            req = new SearchRequest(schemaNcDn, "(&(objectClass=attributeSchema))", SearchScope.Subtree, wantedAttrs);
-            resp = (SearchResponse)conn.SendRequest(req);
+            PagingHelper helper = new PagingHelper()
+            {
+                MaxPages = 0,
+                Connection = conn,
+                Attrs = wantedAttrs,
+                Filter = "(&(objectClass=attributeSchema))",
+                DistinguishedName = schemaNcDn
+            };
 
-            foreach (SearchResultEntry se in resp.Entries)
+            
+            foreach (SearchResultEntry se in helper.GetResults())
             {
                 string attrName = StringOrNull(se, wantedAttrs[0]);
 
@@ -157,10 +164,11 @@ namespace Zetetic.Ldap.Schema
                 "subClassOf",
                 "governsID"
             };
-            req = new SearchRequest(schemaNcDn, "(&(objectClass=classSchema))", SearchScope.Subtree, wantedAttrs);
-            resp = (SearchResponse)conn.SendRequest(req);
 
-            foreach (SearchResultEntry se in resp.Entries)
+            helper.Attrs = wantedAttrs;
+            helper.Filter = "(&(objectClass=classSchema))";
+
+            foreach (SearchResultEntry se in helper.GetResults())
             {
                 ObjectClassSchema oc = new ObjectClassSchema();
                 oc.DisplayName = StringOrNull(se, wantedAttrs[0]);

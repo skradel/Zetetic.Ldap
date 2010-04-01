@@ -45,6 +45,7 @@
     <Compile Include="LdifReader.cs" />
     <Compile Include="MutableEntry.cs" />
     <Compile Include="MutableEntryCollection.cs" />
+    <Compile Include="PagingHelper.cs" />
     <Compile Include="PivotColumn.cs" />
     <Compile Include="RangeHelper.cs" />
     <Compile Include="RangeResult.cs" />
