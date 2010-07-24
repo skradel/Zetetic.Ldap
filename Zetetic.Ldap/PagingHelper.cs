@@ -35,6 +35,8 @@ namespace Zetetic.Ldap
 
         protected virtual SearchResponse GetSearchResponse(string key, SearchRequest req)
         {
+            logger.Trace("Dispatch search to DSA: {0}", key);
+
             var resp = (SearchResponse)this.Connection.SendRequest(req);
 
             this.OnSearchResponse(key, resp);
@@ -83,7 +85,7 @@ namespace Zetetic.Ldap
             if (this.SizeLimit > 0)
                 req.SizeLimit = this.SizeLimit;
 
-            string alist = "";
+            string alist = string.Empty;
             if (this.Attrs != null && this.Attrs.Length > 0)
             {
                 alist = string.Join("!", this.Attrs);
@@ -99,7 +101,7 @@ namespace Zetetic.Ldap
 
             while (prc != null && (currentPage++ < this.MaxPages || this.MaxPages < 1))
             {
-                if (this.PageSize > 0)
+                if (this.PageSize > 0 && this.PageSize < this.SizeLimit)
                 {
                     if (currentPage > 1)
                         req.Controls.Clear();
@@ -109,8 +111,9 @@ namespace Zetetic.Ldap
                 else
                     logger.Trace("Unpaged search");
 
-                string key = this.DistinguishedName + ":" + this.SearchScope.ToString()
-                    + ":" + this.Filter + "," + currentPage + "," + this.PageSize + "," + alist;
+                string key = this.DistinguishedName + ";" + this.SearchScope.ToString()
+                    + ";f=" + this.Filter + ";cp=" + currentPage + ";psz=" + this.PageSize 
+                    + ";szl=" + this.SizeLimit + ";att" + alist;
 
                 SearchResponse resp;
 
@@ -148,7 +151,6 @@ namespace Zetetic.Ldap
 
                 prc = UpdatePrc(resp);
             }
-            yield break;
         }
 
         #region IDisposable Members
