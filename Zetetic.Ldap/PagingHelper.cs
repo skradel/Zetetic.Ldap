@@ -101,7 +101,7 @@ namespace Zetetic.Ldap
 
             while (prc != null && (currentPage++ < this.MaxPages || this.MaxPages < 1))
             {
-                if (this.PageSize > 0 && this.PageSize < this.SizeLimit)
+                if (this.PageSize > 0 && (this.PageSize < this.SizeLimit || this.SizeLimit == 0))
                 {
                     if (currentPage > 1)
                         req.Controls.Clear();
