@@ -1,15 +1,15 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zetetic.Ldap", "Zetetic.Ldap.csproj", "{35692384-717C-4CF0-88FA-5E5A576065CA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchemaInfoTests", "SchemaInfoTests\SchemaInfoTests.csproj", "{A18ABC4F-FF42-4DC4-B898-F38972F77BFF}"
-EndProject
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FFD80A00-AE48-4F30-8A09-A540C89748A4}"
 	ProjectSection(SolutionItems) = preProject
 		LocalTestRun.testrunconfig = LocalTestRun.testrunconfig
 		Zetetic.Ldap.Schema.vsmdi = Zetetic.Ldap.Schema.vsmdi
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zetetic.Ldap", "Zetetic.Ldap.csproj", "{35692384-717C-4CF0-88FA-5E5A576065CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchemaInfoTests", "SchemaInfoTests\SchemaInfoTests.csproj", "{A18ABC4F-FF42-4DC4-B898-F38972F77BFF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LdifTests", "LdifTests\LdifTests.csproj", "{72CBB6CA-D599-4C19-9842-F925ECE79D46}"
 EndProject

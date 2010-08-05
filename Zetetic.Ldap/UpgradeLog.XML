@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="Zetetic.Ldap">
+</Property><Property Name="Solution File" Value="C:\zetetic-ldap\Zetetic.Ldap\Zetetic.Ldap.sln">
+</Property><Property Name="Date" Value="Thursday, May 06, 2010">
+</Property><Property Name="Time" Value="14:12 PM">
+</Property></Properties><Event ErrorLevel="1" Project="Zetetic.Ldap" Source="Zetetic.Ldap.csproj" Description="Your project is targeting .NET Framework 2.0 or 3.0. If your project uses assemblies requiring a newer .NET Framework, your project will fail to build. You can change the .NET Framework version by clicking Properties on the project menu and then selecting a new version in the '.NET Framework' dropdown box. (In Visual Basic, this is located on the Compile tab by clicking the 'Advanced Compiler Options...' button.)">
+</Event><Event ErrorLevel="0" Project="Zetetic.Ldap" Source="Zetetic.Ldap.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="Zetetic.Ldap" Source="Zetetic.Ldap.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="SchemaInfoTests" Source="SchemaInfoTests\SchemaInfoTests.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="SchemaInfoTests" Source="SchemaInfoTests\SchemaInfoTests.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="LdifTests" Source="LdifTests\LdifTests.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="LdifTests" Source="LdifTests\LdifTests.csproj" Description="Converted">
+</Event><Event ErrorLevel="1" Project="Zetetic.Ldap.Pivoter" Source="..\Zetetic.Ldap.Pivoter\Zetetic.Ldap.Pivoter.csproj" Description="Your project is targeting .NET Framework 2.0 or 3.0. If your project uses assemblies requiring a newer .NET Framework, your project will fail to build. You can change the .NET Framework version by clicking Properties on the project menu and then selecting a new version in the '.NET Framework' dropdown box. (In Visual Basic, this is located on the Compile tab by clicking the 'Advanced Compiler Options...' button.)">
+</Event><Event ErrorLevel="0" Project="Zetetic.Ldap.Pivoter" Source="..\Zetetic.Ldap.Pivoter\Zetetic.Ldap.Pivoter.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="Zetetic.Ldap.Pivoter" Source="..\Zetetic.Ldap.Pivoter\Zetetic.Ldap.Pivoter.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="Zetetic.Ldap.AdsImportPrep" Source="..\Zetetic.Ldap.AdsImportPrep\Zetetic.Ldap.AdsImportPrep.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="Zetetic.Ldap.AdsImportPrep" Source="..\Zetetic.Ldap.AdsImportPrep\Zetetic.Ldap.AdsImportPrep.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="Zetetic.Ldap.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="Zetetic.Ldap.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="Zetetic.Ldap" Source="Zetetic.Ldap.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="3" Project="" Source="LocalTestRun.testrunconfig" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="LocalTestRun.testrunconfig" Description="The file was converted to the current format.">
+</Event><Event ErrorLevel="3" Project="" Source="Zetetic.Ldap.Schema.vsmdi" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="Zetetic.Ldap.Schema.vsmdi" Description="The file was converted to the current format.">
+</Event><Event ErrorLevel="0" Project="SchemaInfoTests" Source="SchemaInfoTests\SchemaInfoTests.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="LdifTests" Source="LdifTests\LdifTests.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="Zetetic.Ldap.Pivoter" Source="..\Zetetic.Ldap.Pivoter\Zetetic.Ldap.Pivoter.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="Zetetic.Ldap.AdsImportPrep" Source="..\Zetetic.Ldap.AdsImportPrep\Zetetic.Ldap.AdsImportPrep.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>

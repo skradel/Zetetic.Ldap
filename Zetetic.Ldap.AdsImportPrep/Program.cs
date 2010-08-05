@@ -41,6 +41,8 @@ namespace Zetetic.Ldap
                 ignoredAttrs.Add("internetencoding");
                 ignoredAttrs.Add("targetaddress");
                 ignoredAttrs.Add("altrecipientbl");
+                ignoredAttrs.Add("delivcontlength");
+                ignoredAttrs.Add("submissioncontlength");
             }
 
             bool ignored = false, hasPw = false;

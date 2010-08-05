@@ -21,6 +21,8 @@ namespace Zetetic.Ldap
         public int SizeLimit { get; set; }
         public TimeSpan MaxSearchTimePerPage { get; set; }
 
+        protected readonly IList<DirectoryControl> UserControls = new List<DirectoryControl>();
+
         public PagingHelper()
         {
             this.PageSize = 1000;
@@ -66,6 +68,11 @@ namespace Zetetic.Ldap
             return null;
         }
 
+        public void AddControl(DirectoryControl control)
+        {
+            this.UserControls.Add(control);
+        }
+
         /// <summary>
         /// Lazy-loading pure IEnumerable with transparent paging
         /// </summary>
@@ -108,6 +115,9 @@ namespace Zetetic.Ldap
                 }
                 else
                     logger.Trace("Unpaged search");
+
+                foreach (var dc in this.UserControls)
+                    req.Controls.Add(dc);
 
                 string key = this.DistinguishedName + ":" + this.SearchScope.ToString()
                     + ":" + this.Filter + "," + currentPage + "," + this.PageSize + "," + alist;
