@@ -21,6 +21,8 @@ namespace Zetetic.Ldap
         public int SizeLimit { get; set; }
         public TimeSpan MaxSearchTimePerPage { get; set; }
 
+        public bool IsSizeLimitExceeded { get; protected set; }
+
         protected readonly IList<DirectoryControl> UserControls = new List<DirectoryControl>();
 
         public PagingHelper()
@@ -33,6 +35,25 @@ namespace Zetetic.Ldap
 
         protected virtual void OnSearchResponse(string key, SearchResponse resp)
         {
+        }
+
+        protected virtual SearchResponse ExtractResponseFromException(DirectoryOperationException doe)
+        {
+            if (doe.Response.ResultCode == ResultCode.SizeLimitExceeded && this.SizeLimit > 0)
+            {
+                logger.Info("Keeping SizeLimitExceeded results, count: {0}", this.SizeLimit);
+
+                this.IsSizeLimitExceeded = true;
+
+                return (SearchResponse)doe.Response;
+            }
+            else
+            {
+                logger.Error("Operation exception; rc {0}, msg {1}",
+                    doe.Response.ResultCode, doe.Response.ErrorMessage);
+
+                return null;
+            }
         }
 
         protected virtual SearchResponse GetSearchResponse(string key, SearchRequest req)
@@ -55,17 +76,13 @@ namespace Zetetic.Ldap
             {
                 PageResultResponseControl c = dc as PageResultResponseControl;
 
-                if (c != null)
-                {
-                    if (c.Cookie != null && c.Cookie.Length > 0)
+                if (c != null && c.Cookie != null && c.Cookie.Length > 0)
+                    return new PageResultRequestControl()
                     {
-                        PageResultRequestControl prc = new PageResultRequestControl();
-                        prc.Cookie = c.Cookie;
-                        prc.PageSize = this.PageSize;
-                        prc.IsCritical = true;
-                        return prc;
-                    }
-                }
+                        Cookie = c.Cookie,
+                        PageSize = this.PageSize,
+                        IsCritical = true
+                    };
             }
             return null;
         }
@@ -116,14 +133,15 @@ namespace Zetetic.Ldap
                     req.Controls.Add(prc);
                 }
                 else
-                    logger.Trace("Unpaged search");
-
+                {
+                    logger.Trace("Unpaged search (pgsz {0}, sizelimit {1})", this.PageSize, this.SizeLimit);
+                }
 
                 foreach (var dc in this.UserControls)
                     req.Controls.Add(dc);
 
                 string key = this.DistinguishedName + ";" + this.SearchScope.ToString()
-                    + ";f=" + this.Filter + ";cp=" + currentPage + ";psz=" + this.PageSize 
+                    + ";f=" + this.Filter + ";cp=" + currentPage + ";psz=" + this.PageSize
                     + ";szl=" + this.SizeLimit + ";att" + alist;
 
                 SearchResponse resp;
@@ -131,6 +149,7 @@ namespace Zetetic.Ldap
                 try
                 {
                     resp = this.GetSearchResponse(key, req);
+
                     logger.Debug("{0} total results", resp.Entries.Count);
                 }
                 catch (LdapException lde)
@@ -140,21 +159,14 @@ namespace Zetetic.Ldap
 
                     throw;
                 }
+                // Note that Directory(Operation)Exception is NOT a subclass of LdapException
+                // nor vice versa... verified
                 catch (DirectoryOperationException doe)
                 {
-                    if (doe.Response.ResultCode == ResultCode.SizeLimitExceeded && this.SizeLimit > 0)
-                    {
-                        logger.Info("Keeping SizeLimitExceeded results, count: {0}", this.SizeLimit);
+                    resp = ExtractResponseFromException(doe);
 
-                        resp = (SearchResponse)doe.Response;
-                    }
-                    else
-                    {
-                        logger.Error("Operation exception; rc {0}, msg {1}",
-                            doe.Response.ResultCode, doe.Response.ErrorMessage);
-
+                    if (resp == null)
                         throw;
-                    }
                 }
 
                 foreach (SearchResultEntry se in resp.Entries)
@@ -170,7 +182,6 @@ namespace Zetetic.Ldap
         {
             this.Connection = null;
         }
-
         #endregion
     }
 }
