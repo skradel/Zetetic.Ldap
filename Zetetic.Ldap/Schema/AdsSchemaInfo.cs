@@ -40,7 +40,7 @@ namespace Zetetic.Ldap.Schema
 
             List<object> results = new List<object>();
 
-            switch (attrName.ToLower())
+            switch (attrName.ToLowerInvariant())
             {
                 case "pwdlastset":
                 case "accountexpires":
@@ -128,7 +128,6 @@ namespace Zetetic.Ldap.Schema
                 DistinguishedName = schemaNcDn
             };
 
-            
             foreach (SearchResultEntry se in helper.GetResults())
             {
                 string attrName = StringOrNull(se, wantedAttrs[0]);

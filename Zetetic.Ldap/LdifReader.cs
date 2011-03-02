@@ -149,10 +149,14 @@ namespace Zetetic.Ldap
                     dn = line.Substring(b64 ? 4 : 3).TrimStart();
 
                     while (_source.Peek() == (int)' ')
+                    {
+                        _lineNum++;
+
                         if (this.TrimFoldedLines)
                             dn += _source.ReadLine().Substring(1).TrimStart(' ');
                         else
                             dn += _source.ReadLine().Substring(1);
+                    }
 
                     if (b64) dn = Encoding.UTF8.GetString(Convert.FromBase64String(dn));
                 }
@@ -192,10 +196,14 @@ namespace Zetetic.Ldap
                         attrVal = attrVal.Substring(1);
 
                     while (_source.Peek() == (int)' ')
+                    {
+                        _lineNum++;
+
                         if (this.TrimFoldedLines)
                             attrVal += _source.ReadLine().Substring(1).TrimStart(' ');
                         else
                             attrVal += _source.ReadLine().Substring(1);
+                    }
                 }
 
                 if (OnAttributeValue != null)
