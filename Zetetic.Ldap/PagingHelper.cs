@@ -46,6 +46,10 @@ namespace Zetetic.Ldap
         {
         }
 
+        protected virtual void OnTruncatedSearchResponse(string key, SearchResponse resp)
+        {
+        }
+
         protected virtual SearchResponse ExtractResponseFromException(DirectoryOperationException doe)
         {
             if (doe.Response.ResultCode == ResultCode.SizeLimitExceeded && this.SizeLimit > 0)
@@ -99,16 +103,19 @@ namespace Zetetic.Ldap
             try
             {
                 resp = (SearchResponse)this.Connection.EndSendRequest(async);
+
+                this.OnSearchResponse(key, resp);
             }
             catch (DirectoryOperationException doe)
             {
                 resp = ExtractResponseFromException(doe);
-            }
 
-            this.OnSearchResponse(key, resp);
+                this.OnTruncatedSearchResponse(key, resp);
+            }
 
             return resp;
         }
+
 
         protected PageResultRequestControl UpdatePrc(SearchResponse resp)
         {
