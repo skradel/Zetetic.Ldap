@@ -1,10 +1,13 @@
 *.suo
 *.cache
 *.force
-TestResults/
+/TestResults
 TestResults/*
 ResolveAssemblyReference.dll
 bin/Debug
 obj/Debug
 *.user
-
+[Oo]bj/
+[Bb]in/
+*.vspscc
+*.vssscc
