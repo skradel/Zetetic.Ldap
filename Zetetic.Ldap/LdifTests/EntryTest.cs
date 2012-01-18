@@ -63,6 +63,23 @@ namespace LdifTests
         //
         #endregion
 
+        [TestMethod]
+        public void Entry_Indexer_BasicTest()
+        {
+            Entry target = new Entry(@"uid=jblow,ou=users,dc=test,dc=com");
+            target["test"] = new Attr("test", new[] { "value" });
+
+            string expected = @"value";
+            string actual = (string) target["TEST"].Value[0];
+
+            foreach (var a in target)
+            {
+                System.Console.WriteLine("Attribute {0} in enumerator", a.Name);
+            }
+
+            Assert.AreEqual(expected, actual);
+            Assert.IsFalse(target.IsDnDirty);
+        }
 
         /// <summary>
         ///A test for RDN

@@ -12,10 +12,3 @@ C:\zetetic\Zetetic.Ldap\bin\Debug\NLog.xml
 C:\zetetic\Zetetic.Ldap\obj\Debug\ResolveAssemblyReference.cache
 C:\zetetic\Zetetic.Ldap\obj\Debug\Zetetic.Ldap.Schema.dll
 C:\zetetic\Zetetic.Ldap\obj\Debug\Zetetic.Ldap.Schema.pdb
-C:\zetetic-ldap\Zetetic.Ldap\obj\Debug\ResolveAssemblyReference.cache
-C:\zetetic-ldap\Zetetic.Ldap\bin\Debug\Zetetic.Ldap.dll
-C:\zetetic-ldap\Zetetic.Ldap\bin\Debug\Zetetic.Ldap.pdb
-C:\zetetic-ldap\Zetetic.Ldap\bin\Debug\NLog.dll
-C:\zetetic-ldap\Zetetic.Ldap\bin\Debug\NLog.xml
-C:\zetetic-ldap\Zetetic.Ldap\obj\Debug\Zetetic.Ldap.dll
-C:\zetetic-ldap\Zetetic.Ldap\obj\Debug\Zetetic.Ldap.pdb

@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 namespace Zetetic.Ldap
 {
     [XmlRoot("entry", Namespace="http://zetetic.net/schema/Zetetic.Ldap.Entry")]
-    public class Entry
+    public class Entry : IEnumerable<Attr>
     {
         [XmlAttribute("dn")]
         public string DistinguishedName { get; protected set; }
@@ -22,7 +22,7 @@ namespace Zetetic.Ldap
         public bool IsSuperiorDirty { get; protected set; }
 
         [XmlElement("attribute")]
-        protected readonly Dictionary<string, Attr> Attrs = new Dictionary<string, Attr>();
+        protected readonly Dictionary<string, Attr> Attrs = new Dictionary<string, Attr>(StringComparer.InvariantCultureIgnoreCase);
 
         private static readonly UTF8Encoding Utf8Helper = new UTF8Encoding(false, true);
 
@@ -48,9 +48,7 @@ namespace Zetetic.Ldap
 
             foreach (string s in se.Attributes.AttributeNames)
             {
-                this.Attrs.Add(s.ToLowerInvariant(),
-                    new Attr(s.ToLowerInvariant(),
-                        se.Attributes[s].GetValues(typeof(string))));
+                this.Attrs.Add(s, new Attr(s.ToLowerInvariant(), se.Attributes[s].GetValues(typeof(string))));
             }
         }
 
@@ -129,15 +127,15 @@ namespace Zetetic.Ldap
             if (string.IsNullOrEmpty(attrName))
                 throw new ArgumentNullException("attrName");
 
-            string key = attrName.ToLowerInvariant();
+            Attr a;
 
-            if (this.Attrs.ContainsKey(key))
+            if (this.Attrs.TryGetValue(attrName, out a))
             {
-                this.Attrs[key].Value.Add(attrValue);
+                a.Value.Add(attrValue);
             }
             else
             {
-                this.Attrs[key] = new Attr(key, new List<object>() { attrValue });
+                this.Attrs[attrName] = new Attr(attrName, new List<object>() { attrValue });
             }
         }
 
@@ -151,7 +149,25 @@ namespace Zetetic.Ldap
             if (attr == null)
                 throw new ArgumentNullException("attr");
 
-            this.Attrs[attr.Name.ToLowerInvariant()] = attr;
+            this.Attrs[attr.Name] = attr;
+        }
+
+        public Attr this[string key] 
+        {
+            get 
+            {
+                Attr a;
+                if (this.Attrs.TryGetValue(key, out a)) 
+                {
+                    return a;
+                }
+                return null;
+            }
+
+            set 
+            {
+                this.Attrs[key] = value;
+            }
         }
 
         /// <summary>
@@ -161,10 +177,13 @@ namespace Zetetic.Ldap
         /// <returns></returns>
         public int GetAttrValueCount(string propName)
         {
-            if (this.Attrs.ContainsKey(propName.ToLowerInvariant()))
+            Attr a;
+
+            if (this.Attrs.TryGetValue(propName, out a))
             {
-                return this.Attrs[propName.ToLowerInvariant()].Value.Count;
+                return a.Value.Count;
             }
+
             return 0;
         }
 
@@ -178,7 +197,7 @@ namespace Zetetic.Ldap
         {
             if (this.HasAttribute(attrName))
             {
-                object[] v = this.Attrs[attrName.ToLowerInvariant()].Value.ToArray();
+                object[] v = this.Attrs[attrName].Value.ToArray();
                 string[] s = new string[v.Length];
 
                 for (int i = 0; i < v.Length; i++)
@@ -296,5 +315,23 @@ namespace Zetetic.Ldap
                 this.IsDnDirty = true;
             }
         }
+
+        #region IEnumerable<Attr> Members
+
+        public IEnumerator<Attr> GetEnumerator()
+        {
+            return this.Attrs.Values.GetEnumerator();
+        }
+
+        #endregion
+
+        #region IEnumerable Members
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
+            return this.GetEnumerator();
+        }
+
+        #endregion
     }
 }

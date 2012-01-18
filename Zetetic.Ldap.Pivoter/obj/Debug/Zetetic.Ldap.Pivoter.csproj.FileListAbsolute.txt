@@ -1,9 +1,0 @@
-C:\zetetic-ldap\Zetetic.Ldap.Pivoter\bin\Debug\Zetetic.Ldap.Pivoter.exe
-C:\zetetic-ldap\Zetetic.Ldap.Pivoter\bin\Debug\Zetetic.Ldap.Pivoter.pdb
-C:\zetetic-ldap\Zetetic.Ldap.Pivoter\bin\Debug\Zetetic.Ldap.dll
-C:\zetetic-ldap\Zetetic.Ldap.Pivoter\bin\Debug\NLog.dll
-C:\zetetic-ldap\Zetetic.Ldap.Pivoter\bin\Debug\Zetetic.Ldap.pdb
-C:\zetetic-ldap\Zetetic.Ldap.Pivoter\bin\Debug\NLog.xml
-C:\zetetic-ldap\Zetetic.Ldap.Pivoter\obj\Debug\ResolveAssemblyReference.cache
-C:\zetetic-ldap\Zetetic.Ldap.Pivoter\obj\Debug\Zetetic.Ldap.Pivoter.exe
-C:\zetetic-ldap\Zetetic.Ldap.Pivoter\obj\Debug\Zetetic.Ldap.Pivoter.pdb
