@@ -1,6 +1,7 @@
 *.suo
 *.cache
 *.force
+*FileListAbsolute.txt
 /TestResults
 TestResults/*
 ResolveAssemblyReference.dll
