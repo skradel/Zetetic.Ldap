@@ -49,7 +49,7 @@ namespace Zetetic.Ldap.Vlv
             {
                 vlvresp = control as VlvResponseControl;
 
-                if (vlvreq != null) 
+                if (vlvresp != null) 
                 {
                     break;
                 }
