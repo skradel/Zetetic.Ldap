@@ -1,9 +1,0 @@
-C:\zetetic-ldap\Zetetic.Ldap.AdsImportPrep\bin\Release\Zetetic.Ldap.AdsImportPrep.exe
-C:\zetetic-ldap\Zetetic.Ldap.AdsImportPrep\bin\Release\Zetetic.Ldap.AdsImportPrep.pdb
-C:\zetetic-ldap\Zetetic.Ldap.AdsImportPrep\bin\Release\Zetetic.Ldap.dll
-C:\zetetic-ldap\Zetetic.Ldap.AdsImportPrep\bin\Release\NLog.dll
-C:\zetetic-ldap\Zetetic.Ldap.AdsImportPrep\bin\Release\Zetetic.Ldap.pdb
-C:\zetetic-ldap\Zetetic.Ldap.AdsImportPrep\bin\Release\NLog.xml
-C:\zetetic-ldap\Zetetic.Ldap.AdsImportPrep\obj\Release\ResolveAssemblyReference.cache
-C:\zetetic-ldap\Zetetic.Ldap.AdsImportPrep\obj\Release\Zetetic.Ldap.AdsImportPrep.exe
-C:\zetetic-ldap\Zetetic.Ldap.AdsImportPrep\obj\Release\Zetetic.Ldap.AdsImportPrep.pdb

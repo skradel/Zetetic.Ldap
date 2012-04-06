@@ -87,6 +87,8 @@
     <Compile Include="Schema\SchemaExtension.cs" />
     <Compile Include="Schema\SchemaInfoBase.cs" />
     <Compile Include="Schema\UnknownSyntaxOidException.cs" />
+    <Compile Include="Vlv\VlvData.cs" />
+    <Compile Include="Vlv\VlvManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

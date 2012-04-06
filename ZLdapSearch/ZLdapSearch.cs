@@ -24,7 +24,7 @@ Mandatory
 
 Optional
 ----
--l     attribute list (comma or semicolon separated)
+-l     attribute list (comma or space separated)
 -o     file output
 -m     size limit
 -a     authentication type
@@ -73,7 +73,7 @@ Optional
                             break;
 
                         case "-l":
-                            attrs = args[++i].Split(',', ';');
+                            attrs = args[++i].Split(',', ' ');
                             break;
 
                         case "-m":
@@ -162,6 +162,12 @@ Optional
 
                             foreach (DirectoryAttribute attr in entry.Attributes.Values)
                             {
+                                if (attr.Count == 0)
+                                {
+                                    Console.Error.WriteLine("Attribute {0} contains no values; possible ranged attr", attr.Name);
+                                    continue;
+                                }
+
                                 try
                                 {
                                     foreach (string s in attr.GetValues(typeof(string)))

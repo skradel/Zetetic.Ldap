@@ -16,12 +16,3 @@ C:\Zetetic.Ldap\Zetetic.Ldap\SchemaInfoTests\bin\Release\NLog.xml
 C:\Zetetic.Ldap\Zetetic.Ldap\SchemaInfoTests\obj\Release\ResolveAssemblyReference.cache
 C:\Zetetic.Ldap\Zetetic.Ldap\SchemaInfoTests\obj\Release\SchemaInfoTests.dll
 C:\Zetetic.Ldap\Zetetic.Ldap\SchemaInfoTests\obj\Release\SchemaInfoTests.pdb
-C:\zetetic-ldap\Zetetic.Ldap\SchemaInfoTests\bin\Release\SchemaInfoTests.dll
-C:\zetetic-ldap\Zetetic.Ldap\SchemaInfoTests\bin\Release\SchemaInfoTests.pdb
-C:\zetetic-ldap\Zetetic.Ldap\SchemaInfoTests\bin\Release\Zetetic.Ldap.dll
-C:\zetetic-ldap\Zetetic.Ldap\SchemaInfoTests\bin\Release\NLog.dll
-C:\zetetic-ldap\Zetetic.Ldap\SchemaInfoTests\bin\Release\Zetetic.Ldap.pdb
-C:\zetetic-ldap\Zetetic.Ldap\SchemaInfoTests\bin\Release\NLog.xml
-C:\zetetic-ldap\Zetetic.Ldap\SchemaInfoTests\obj\Release\ResolveAssemblyReference.cache
-C:\zetetic-ldap\Zetetic.Ldap\SchemaInfoTests\obj\Release\SchemaInfoTests.dll
-C:\zetetic-ldap\Zetetic.Ldap\SchemaInfoTests\obj\Release\SchemaInfoTests.pdb
