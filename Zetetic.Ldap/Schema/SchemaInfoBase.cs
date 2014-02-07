@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Text;
 using System.DirectoryServices.Protocols;
 using System.Collections.ObjectModel;
-using NLog;
 
 namespace Zetetic.Ldap.Schema
 {
     public abstract class SchemaInfoBase : ISchemaInfo
     {
-        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+        private static readonly NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
         public abstract void Initialize(LdapConnection conn);
 

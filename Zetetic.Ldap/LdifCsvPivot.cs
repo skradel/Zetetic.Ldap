@@ -91,21 +91,22 @@ namespace Zetetic.Ldap
                             default:
                                 if (e.HasAttribute(col.Source))
                                 {
+                                    string[] values = e.GetAttrStringValues(col.Source);
+
                                     if (string.IsNullOrEmpty(col.Joiner))
                                     {
                                         if (col.Index == PivotColumn.LAST_INDEX)
                                         {
-                                            Write(e.GetAttrStringValues(col.Source)[
-                                                e.GetAttrValueCount(col.Source) - 1]);
+                                            Write(values[values.Length - 1]);
                                         }
-                                        else if (e.GetAttrValueCount(col.Source) > col.Index)
+                                        else if (values.Length > col.Index)
                                         {
-                                            Write(e.GetAttrStringValues(col.Source)[0]);
+                                            Write(values[col.Index]);
                                         }
                                     }
                                     else
                                     {
-                                        Write(string.Join(col.Joiner, e.GetAttrStringValues(col.Source)));
+                                        Write(string.Join(col.Joiner, values));
                                     }
                                 }
                                 break;
